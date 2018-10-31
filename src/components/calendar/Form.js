@@ -1,76 +1,106 @@
 import React, { Component } from 'react';
+import Mini from './MiniCalendar'
+const database = window.firebase.database();
 
 class Form extends Component {
+  constructor() {
+    super()
+    this.state = {
+      products: [],
+      productName: '',
+      productPrice: 0,
+      surchargeAmount: 0,
+      totalAmount: 0
+    }
+    this.myRef = React.createRef();
+  }
+  componentDidMount() {
+    database.ref('/agency').once('value').then(snapshot => {
+      const arr = Object.values(snapshot.val().products);
+      this.setState({
+        products: arr
+      })
+    });
+    const hour = parseInt(this.props.hour);
+
+    if (hour >= 12 && hour < 16) {
+      this.setState({ surchargeAmount: (this.props.price * 0.05) });
+    } else if (hour >= 16 && hour < 20) {
+      this.setState({ surchargeAmount: (this.props.price * 0.15) });
+    } else {
+      this.setState({ surchargeAmount: 0 });
+    }
+  }
+
   render() {
     return (
       <div>
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1" class="bmd-label-floating">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" />
-            <span class="bmd-help">We'll never share your email with anyone else.</span>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="bmd-label-floating">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" />
-          </div>
-          <div class="form-group">
-            <label for="exampleSelect1" class="bmd-label-floating">Example select</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+        <form className="form-data p-5" onSubmit={this.handleSubmit.bind(this)}>
+          <Mini hour={this.props.hour} />
+          <div className="form-group">
+            <label htmlFor="exampleSelect1" className="bmd-label-floating">Producto</label>
+            <select className="form-control" id="exampleSelect1" onChange={this.handleChange.bind(this)}>
+              <option disabled selected>Selecciona una opción</option>
+              {this.state.products.map((element, i) => {
+                return (<option key={`products${i}`} value={element.price + "-" + element.name}>{element.name}</option>)
+              })}
             </select>
           </div>
-          <div class="form-group">
-            <label for="exampleSelect2" class="bmd-label-floating">Example multiple select</label>
-            <select multiple class="form-control" id="exampleSelect2">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
+          <div className="form-group">
+            <label className="bmd-label-floating">Programa</label>
+            <input type="text" className="form-control" value={this.props.name} disabled />
           </div>
-          <div class="form-group">
-            <label for="exampleTextarea" class="bmd-label-floating">Example textarea</label>
-            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+          <div className="form-group">
+            <label className="bmd-label-floating">Fecha</label>
+            <input type="text" className="form-control" value={this.props.day} disabled />
           </div>
-          <div class="form-group">
-            <label for="exampleInputFile" class="bmd-label-floating">File input</label>
-            <input type="file" class="form-control-file" id="exampleInputFile" />
-            <small class="text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+          <div className="form-group">
+            <label className="bmd-label-floating">Monto por producto</label>
+            <input type="text" className="form-control" value={this.state.productPrice} disabled />
           </div>
-          <div class="radio">
+          <div className="form-group">
+            <label className="bmd-label-floating">Monto por programa</label>
+            <input type="text" className="form-control" value={this.props.price} disabled />
+          </div>
+          <div className="form-group">
+            <label className="bmd-label-floating">Monto por recargo</label>
+            <input type="text" className="form-control" value={this.state.surchargeAmount} disabled />
+          </div>
+          <div className="form-group">
+            <label className="bmd-label-floating">Monto total</label>
+            <input type="text" className="form-control" ref={this.myRef} value={(parseInt(this.state.productPrice) + parseInt(this.props.price) + parseInt(this.state.surchargeAmount))} disabled />
+          </div>
+          <div className="form-check">
             <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
-              Option one is this and that&mdash;be sure to include why it's great
+              <input type="checkbox" className="form-check-input" caria-label="Checkbox for following text input" /> Acepto los términos y condiciones
             </label>
           </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
-              Option two can be something else and selecting it will deselect option one
-            </label>
-          </div>
-          <div class="radio disabled">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled />
-              Option three is disabled
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" /> Check me out
-            </label>
-          </div>
-          <button class="btn btn-default">Cancel</button>
-          <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+          <button type="submit" className="btn btn-raised btn-warning btn-login" name="cancel">Cancelar</button>
+          <button type="submit" className="btn btn-raised btn-success btn-login" name="submit">Enviar</button>
         </form>
       </div>
     );
+  }
+
+  handleChange(e) {
+    const newTarget = e.target.value.split('-');
+    this.setState({ productPrice: parseInt(newTarget[0]), productName: newTarget[1] });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.productPrice !== 0) {
+      database.ref('booking/').push({
+        name: this.props.name,
+        productName: this.state.productName,
+        productPrice: this.state.productPrice,
+        programPrice: this.props.price,
+        surchargePrice: this.state.surchargeAmount,
+        totalPrice: this.myRef.current.value
+      });
+    } else {
+      alert("seleccionar producto")
+    }
   }
 }
 
