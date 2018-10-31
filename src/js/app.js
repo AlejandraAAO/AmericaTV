@@ -9,8 +9,7 @@ window.handleLogin = (email, password) => {
     
     if(snapshot.val().email=== email && snapshot.val().password === parseInt(password))
       console.log("ingresaste");
-    else
-      console.log("no ingresaste");      
+          
   });
 }
 

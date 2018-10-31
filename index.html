@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Lato" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
     integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
   <link rel="stylesheet" href="./src/css/style.css">
@@ -27,19 +27,25 @@
     <div class="container col-sm-12 col-md-6 text-white d-flex flex-column mt-5 mb-3 justify-content-center align-items-center">
       <h3 class="">Conectémonos+</h3>
       <p class="">EQUIPO COMERCIAL/CLIENTES</p>
-      <form class="bg-white text-black p-3 form-login">
+
+      <form class="bg-white text-black p-3 form-login needs-validation" novalidate>
         <img src="http://www.comercial.americatv.com.pe/images/load-america.gif" class="rounded mx-auto d-block" alt="logo">
         <div class="form-group">
-          <label for="exampleInputEmail1" class="bmd-label-floating">Coreo electronico</label>
-          <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">No compartas tu información privada</small>
+          <label for="email" class="bmd-label-floating">Coreo electronico</label>
+          <input type="email" class="form-control" id="email" required>
+          <div class="invalid-feedback text-danger" id="if1">
+              Email invalido
+          </div>       
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1" class="bmd-label-floating">Contraseña</label>
-          <input type="password" class="form-control" id="password">
+          <label for="password" class="bmd-label-floating">Contraseña</label>
+          <input type="password" class="form-control" id="password" required>
+          <div class="invalid-feedback text-danger" id="if2">
+              Contraseña invalida
+          </div>
         </div>
         <div class="form-group m-0 d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary" id="submit">Ingresar</button>
+          <button type="submit" class="btn btn-primary btn-login" id="submit">Ingresar</button>
         </div>
       </form>
     </div>
@@ -51,7 +57,10 @@
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
     crossorigin="anonymous"></script>
-  <script>$(document).ready(() => { $('body').bootstrapMaterialDesign(); });</script>
+  <script>
+  $(document).ready(() => { $('body').bootstrapMaterialDesign(); });
+     
+  </script>
 
   <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
   <script src="./src/js/config.js"></script>
