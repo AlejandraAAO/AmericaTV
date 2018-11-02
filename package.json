@@ -1,8 +1,7 @@
 {
   "name": "reto-americatv",
-  "homepage": "https://vbiaggi10.github.io/AmericaTV/",
   "version": "0.1.0",
-  "homepage": "https://alejandraaao.github.io/AmericaTV/.",
+  "homepage": "https://alejandraaao.github.io/AmericaTV/",
   "private": true,
   "dependencies": {
     "react": "^16.6.0",
