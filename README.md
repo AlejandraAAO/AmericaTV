@@ -1,44 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Propuesta de plataforma en línea para registrar espacios publicitarios 
 
-## Available Scripts
+### El reto
 
-In the project directory, you can run:
+Ser el primer canal de televisión en Perú, en ofrecer una plataforma que permita a las Agencias de publicidad registrar la publicidad que compra.
 
-### `npm start`
+### Problemas encontrados
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Los usuarios, deben de esperar la atención de un vendedor para reservar publicidad
+* Los usuarios pueden competir por un mismo cupo en el mismo momento con diferentes vendedores
+* Los usuarios no tienen conocimiento que otras empresas publicitan en su mismo horario
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Propuesta
 
-### `npm test`
+Web Desarrollada con Html, React, Boostrap:
+MVP - web con login que permite escoger el horario de la reserva en simultáneo
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Usuario de prueba
 
-### `npm run build`
+Email: ricky.martin@publicitate.com
+Password: 123456
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Desarrolladoras
+* Alejandra Amezaga - Front-end developer
+* Valeria Biagui - Front-end developer
+* Diana Apasa - Front-end developer
+* Lorena Reyes - User Experience Designer
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
